@@ -13,8 +13,8 @@ from utils import clamp, rad2deg
 # CPG -> FOOT TRAJECTORY
 # ----------------------------
 def cpg_to_foot_trajectory(phases_leg, amps_leg, t,
-                           step_length=config.STEP_LENGTH, step_height=config.STEP_HEIGHT,
-                           base_x=config.BASE_X, base_y=config.BASE_Y, base_z=config.BASE_Z):
+                           step_length=0.04, step_height=0.03,
+                           base_x=0.0, base_y=0.0, base_z=-0.12):
     """
     Convert three oscillator phases (hip, thigh, knee) for a single leg into a foot (x,y,z).
     phases_leg: list/tuple of 3 phases (rad) for hip, thigh, knee
