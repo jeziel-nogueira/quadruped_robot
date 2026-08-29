@@ -1,0 +1,189 @@
+{
+  "cpg": {
+    "tau_m": 0.19,
+    "K_motor": 1.0,
+    "K_a": 1.0,
+    "a_M": 1.0,
+    "b_M": 2.0,
+    "c_M": 1.5,
+    "d_M": 1.0,
+    "a_S": 1.0,
+    "b_S": 2.0,
+    "c_S": 1.5,
+    "d_S": 1.0,
+    "k_12": -0.5,
+    "k_21": -0.5,
+    "k_M": [
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "k_S": [
+      0.5,
+      0.5,
+      0.5,
+      0.5
+    ],
+    "d_p_default": 1.0
+  },
+  "feedback": {
+    "K_y": 0.1,
+    "K_p": 0.1,
+    "K_u": 0.2,
+    "yaw_target": 0.0,
+    "pitch_target": 0.0
+  },
+  "joints": {
+    "scale_master": 0.5,
+    "scale_slave": 0.8,
+    "offsets": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ]
+  },
+  "servos": [
+    {
+      "channel": 0,
+      "name": "FL_hip_yaw",
+      "tick_min": 102,
+      "tick_center": 307,
+      "tick_max": 512,
+      "inverted": false,
+      "trim_deg": 0.0,
+      "limit_min_deg": 0.0,
+      "limit_max_deg": 180.0
+    },
+    {
+      "channel": 1,
+      "name": "FL_hip_pitch",
+      "tick_min": 102,
+      "tick_center": 307,
+      "tick_max": 512,
+      "inverted": false,
+      "trim_deg": 0.0,
+      "limit_min_deg": 0.0,
+      "limit_max_deg": 180.0
+    },
+    {
+      "channel": 2,
+      "name": "FL_knee",
+      "tick_min": 102,
+      "tick_center": 307,
+      "tick_max": 512,
+      "inverted": false,
+      "trim_deg": 0.0,
+      "limit_min_deg": 0.0,
+      "limit_max_deg": 180.0
+    },
+    {
+      "channel": 4,
+      "name": "FR_hip_yaw",
+      "tick_min": 102,
+      "tick_center": 307,
+      "tick_max": 512,
+      "inverted": false,
+      "trim_deg": 0.0,
+      "limit_min_deg": 0.0,
+      "limit_max_deg": 180.0
+    },
+    {
+      "channel": 5,
+      "name": "FR_hip_pitch",
+      "tick_min": 102,
+      "tick_center": 307,
+      "tick_max": 512,
+      "inverted": false,
+      "trim_deg": 0.0,
+      "limit_min_deg": 0.0,
+      "limit_max_deg": 180.0
+    },
+    {
+      "channel": 6,
+      "name": "FR_knee",
+      "tick_min": 102,
+      "tick_center": 307,
+      "tick_max": 512,
+      "inverted": false,
+      "trim_deg": 0.0,
+      "limit_min_deg": 0.0,
+      "limit_max_deg": 180.0
+    },
+    {
+      "channel": 8,
+      "name": "HL_hip_yaw",
+      "tick_min": 102,
+      "tick_center": 307,
+      "tick_max": 512,
+      "inverted": false,
+      "trim_deg": 0.0,
+      "limit_min_deg": 0.0,
+      "limit_max_deg": 180.0
+    },
+    {
+      "channel": 9,
+      "name": "HL_hip_pitch",
+      "tick_min": 102,
+      "tick_center": 307,
+      "tick_max": 512,
+      "inverted": false,
+      "trim_deg": 0.0,
+      "limit_min_deg": 0.0,
+      "limit_max_deg": 180.0
+    },
+    {
+      "channel": 10,
+      "name": "HL_knee",
+      "tick_min": 102,
+      "tick_center": 307,
+      "tick_max": 512,
+      "inverted": false,
+      "trim_deg": 0.0,
+      "limit_min_deg": 0.0,
+      "limit_max_deg": 180.0
+    },
+    {
+      "channel": 12,
+      "name": "HR_hip_yaw",
+      "tick_min": 102,
+      "tick_center": 307,
+      "tick_max": 512,
+      "inverted": false,
+      "trim_deg": 0.0,
+      "limit_min_deg": 0.0,
+      "limit_max_deg": 180.0
+    },
+    {
+      "channel": 13,
+      "name": "HR_hip_pitch",
+      "tick_min": 102,
+      "tick_center": 307,
+      "tick_max": 512,
+      "inverted": false,
+      "trim_deg": 0.0,
+      "limit_min_deg": 0.0,
+      "limit_max_deg": 180.0
+    },
+    {
+      "channel": 14,
+      "name": "HR_knee",
+      "tick_min": 102,
+      "tick_center": 307,
+      "tick_max": 512,
+      "inverted": false,
+      "trim_deg": 0.0,
+      "limit_min_deg": 0.0,
+      "limit_max_deg": 180.0
+    }
+  ]
+}

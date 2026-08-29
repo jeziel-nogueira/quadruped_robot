@@ -1,0 +1,13 @@
+{
+  "name": "quadruped-web-dashboard",
+  "version": "1.0.0",
+  "description": "Configuration & telemetry web dashboard for 12-DoF quadruped robot",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^5.0.0"
+  }
+}

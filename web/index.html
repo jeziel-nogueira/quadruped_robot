@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quadruped Robot - Control Center</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- HEADER -->
+        <header class="main-header">
+            <div class="brand">
+                <div class="logo-circle"></div>
+                <h1>ANTIGRAVITY <span>QUADRUPED</span></h1>
+            </div>
+            
+            <div class="system-status">
+                <div class="status-item">
+                    <span class="label">Battery:</span>
+                    <div class="battery-wrapper">
+                        <div class="battery-bar" id="battery-bar" style="width: 100%"></div>
+                        <span id="battery-voltage">8.4V</span>
+                    </div>
+                </div>
+                <div class="status-item">
+                    <span class="label">Status:</span>
+                    <span class="status-badge disconnected" id="conn-badge">
+                        <span class="pulse-dot"></span>
+                        <span class="badge-text">Offline</span>
+                    </span>
+                </div>
+                <nav style="display:flex; gap:0.75rem; margin-left:1rem;">
+                    <a href="/" style="color:var(--accent-cyan); text-decoration:none; font-size:0.82rem; padding:0.3rem 0.8rem; border:1px solid rgba(0,245,212,0.3); border-radius:6px; background:rgba(0,245,212,0.08);">Dashboard</a>
+                    <a href="/calibrate.html" style="color:var(--text-secondary); text-decoration:none; font-size:0.82rem; padding:0.3rem 0.8rem; border:1px solid transparent; border-radius:6px;" onmouseover="this.style.borderColor='rgba(0,245,212,0.25)'" onmouseout="this.style.borderColor='transparent'">Calibration</a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- DASHBOARD GRID -->
+        <main class="dashboard-grid">
+            
+            <!-- LEFT COLUMN: CONFIGURATION PANEL -->
+            <section class="panel config-panel glass">
+                <div class="panel-header">
+                    <h2>Parameters Tuning</h2>
+                    <span class="sub">CPG Constants & Gains</span>
+                </div>
+                
+                <div class="panel-content scrollable">
+                    <!-- CPG Network parameters -->
+                    <div class="control-group">
+                        <h3>CPG Oscillators</h3>
+                        <div class="slider-item">
+                            <div class="slider-info">
+                                <label for="param-tau_m">Time Constant (&tau;<sub>m</sub>)</label>
+                                <span class="val" id="val-tau_m">0.10</span>
+                            </div>
+                            <input type="range" id="param-tau_m" min="0.01" max="0.5" step="0.01" value="0.10">
+                        </div>
+                        <div class="slider-item">
+                            <div class="slider-info">
+                                <label for="param-a_M">Excitatory Self-Coupling (a<sub>M</sub>)</label>
+                                <span class="val" id="val-a_M">1.0</span>
+                            </div>
+                            <input type="range" id="param-a_M" min="0.1" max="3.0" step="0.1" value="1.0">
+                        </div>
+                        <div class="slider-item">
+                            <div class="slider-info">
+                                <label for="param-b_M">Inhibitory Self-Coupling (b<sub>M</sub>)</label>
+                                <span class="val" id="val-b_M">2.0</span>
+                            </div>
+                            <input type="range" id="param-b_M" min="0.5" max="4.0" step="0.1" value="2.0">
+                        </div>
+                        <div class="slider-item">
+                            <div class="slider-info">
+                                <label for="param-c_M">Excitatory Cross-Coupling (c<sub>M</sub>)</label>
+                                <span class="val" id="val-c_M">1.5</span>
+                            </div>
+                            <input type="range" id="param-c_M" min="0.5" max="3.0" step="0.1" value="1.5">
+                        </div>
+                    </div>
+
+                    <!-- Sensor Feedback Gains -->
+                    <div class="control-group">
+                        <h3>Feedback Loops</h3>
+                        <div class="slider-item">
+                            <div class="slider-info">
+                                <label for="param-K_y">Gyro Yaw Gain (K<sub>y</sub>)</label>
+                                <span class="val" id="val-K_y">0.10</span>
+                            </div>
+                            <input type="range" id="param-K_y" min="0.0" max="0.5" step="0.01" value="0.10">
+                        </div>
+                        <div class="slider-item">
+                            <div class="slider-info">
+                                <label for="param-K_p">Gyro Pitch Gain (K<sub>p</sub>)</label>
+                                <span class="val" id="val-K_p">0.10</span>
+                            </div>
+                            <input type="range" id="param-K_p" min="0.0" max="0.5" step="0.01" value="0.10">
+                        </div>
+                        <div class="slider-item">
+                            <div class="slider-info">
+                                <label for="param-K_u">Ultrasonic Gain (K<sub>u</sub>)</label>
+                                <span class="val" id="val-K_u">0.20</span>
+                            </div>
+                            <input type="range" id="param-K_u" min="0.0" max="0.8" step="0.05" value="0.20">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- MIDDLE COLUMN: REAL-TIME SIMULATION & JOSTICK -->
+            <section class="center-column">
+                <!-- Quadruped Live Render -->
+                <div class="panel render-panel glass">
+                    <div class="panel-header">
+                        <h2>Gait Kinematics</h2>
+                        <span class="sub" id="mode-text">Local Simulated Leg Motion</span>
+                    </div>
+                    <div class="canvas-container">
+                        <canvas id="robot-canvas"></canvas>
+                    </div>
+                </div>
+
+                <!-- Joystick and Primary Control -->
+                <div class="control-panel glass">
+                    <div class="gait-toggle">
+                        <button id="btn-power" class="btn btn-primary power-btn off">
+                            <svg class="icon-power" viewBox="0 0 24 24">
+                                <path d="M12 2v10M18.36 5.64A9 9 0 115.64 5.64"/>
+                            </svg>
+                            <span>Standby</span>
+                        </button>
+                    </div>
+                    
+                    <div class="joystick-section">
+                        <span class="section-label">STEERING</span>
+                        <div class="joystick-wrapper">
+                            <div class="joystick-pad" id="joystick-pad">
+                                <div class="joystick-knob" id="joystick-knob"></div>
+                            </div>
+                        </div>
+                        <div class="joystick-values">
+                            <span>Yaw Turn: <span id="joy-x">0.00</span></span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- RIGHT COLUMN: SENSOR GRAPHS & TELEMETRY -->
+            <section class="panel telemetry-panel glass">
+                <div class="panel-header">
+                    <h2>Live Telemetry</h2>
+                    <span class="sub">Sensors & CPG Oscillations</span>
+                </div>
+                
+                <div class="panel-content">
+                    <!-- Sensor Cards -->
+                    <div class="sensors-row">
+                        <div class="sensor-card">
+                            <span class="label">Ultrasonic Range</span>
+                            <span class="val" id="lbl-distance">-- cm</span>
+                            <div class="distance-progress-bg">
+                                <div class="distance-progress-bar" id="distance-bar" style="width: 0%"></div>
+                            </div>
+                        </div>
+                        <div class="sensor-card">
+                            <span class="label">IMU Pitch</span>
+                            <span class="val" id="lbl-pitch">0.0°</span>
+                        </div>
+                    </div>
+
+                    <!-- Chart 1: CPG Waves -->
+                    <div class="chart-container">
+                        <h3>CPG Oscillator Output (Excitatory u_e)</h3>
+                        <canvas id="chart-cpg" width="400" height="150"></canvas>
+                    </div>
+
+                    <!-- Chart 2: Gyro Angles -->
+                    <div class="chart-container">
+                        <h3>Body Attitude (Yaw / Pitch)</h3>
+                        <canvas id="chart-imu" width="400" height="150"></canvas>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/websocket.js"></script>
+    <script src="js/chart.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

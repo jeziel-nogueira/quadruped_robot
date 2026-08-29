@@ -1,0 +1,10 @@
+# === Pacotes obrigatórios (Windows + Raspberry Pi) ===
+fastapi>=0.100.0
+uvicorn>=0.20.0
+numpy>=1.21.0
+
+# === Pacotes apenas no Raspberry Pi (hardware real) ===
+# Descomente ao rodar no Pi:
+# smbus2>=0.4.0          # I2C para MPU6050 (giroscópio)
+# RPi.GPIO>=0.7.0        # GPIO para HC-SR04 (ultrassônico)
+# Adafruit-PCA9685>=1.0  # Driver PCA9685 (servos PWM)
