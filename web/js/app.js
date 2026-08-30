@@ -239,13 +239,16 @@ document.addEventListener("DOMContentLoaded", () => {
     joyKnob.addEventListener("touchstart", (e) => {
         isDragging = true;
         padRect = joyPad.getBoundingClientRect();
-        e.preventDefault();
-    });
+        if (e.cancelable) e.preventDefault();
+    }, { passive: false });
 
     document.addEventListener("touchmove", (e) => {
         if (!isDragging) return;
-        handleJoystickMove(e.touches[0].clientX);
-    });
+        if (e.touches && e.touches.length > 0) {
+            handleJoystickMove(e.touches[0].clientX);
+            if (e.cancelable) e.preventDefault();
+        }
+    }, { passive: false });
 
     document.addEventListener("touchend", () => {
         if (isDragging) {

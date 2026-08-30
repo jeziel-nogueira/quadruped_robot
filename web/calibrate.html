@@ -343,17 +343,43 @@
             min-width: 60px;
         }
         .map-leg:hover { border-color: var(--accent-cyan); color: var(--accent-cyan); }
-        .map-leg.active { border-color: var(--accent-cyan); background: rgba(0, 245, 212, 0.1); color: var(--accent-cyan); }
-
         @media (max-width: 900px) {
             .calibration-layout {
                 grid-template-columns: 1fr;
+                margin-top: 1rem;
             }
             .servo-grid {
                 grid-template-columns: 1fr;
             }
             .detail-panel {
                 position: static;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .page-nav {
+                width: 100%;
+                justify-content: flex-start;
+                overflow-x: auto;
+                padding-bottom: 0.25rem;
+            }
+            .servo-card-actions {
+                flex-wrap: wrap;
+            }
+            .btn-sm {
+                flex: 1;
+                text-align: center;
+                padding: 0.4rem 0.5rem;
+            }
+            .toast {
+                left: 1rem;
+                right: 1rem;
+                bottom: 1rem;
+                text-align: center;
+            }
+            .actions-card .btn-action {
+                padding: 0.65rem 0.75rem;
+                font-size: 0.82rem;
             }
         }
     </style>
