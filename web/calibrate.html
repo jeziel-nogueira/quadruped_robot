@@ -535,9 +535,11 @@
                 <span class="servo-idx">IDX ${idx} <span class="servo-channel">CH ${s.channel}</span></span>
             </div>
             <div class="servo-angle-control">
+                <button class="btn-step" onclick="event.stopPropagation(); stepServo(${idx}, -1)">−</button>
                 <input type="range" min="0" max="180" value="90" step="1"
                     id="servo-slider-${idx}"
                     oninput="moveServo(${idx}, this.value)">
+                <button class="btn-step" onclick="event.stopPropagation(); stepServo(${idx}, 1)">+</button>
                 <span class="servo-angle-val" id="servo-val-${idx}">90°</span>
             </div>
             <div class="servo-card-actions">
@@ -587,6 +589,14 @@
 
     // ── Move servo via API ───────────────────────────────────
     let moveDebounce = null;
+    function stepServo(idx, delta) {
+        const slider = document.getElementById(`servo-slider-${idx}`);
+        if (!slider) return;
+        let current = parseFloat(slider.value) || 90;
+        let newVal = Math.max(0, Math.min(180, current + delta));
+        moveServo(idx, newVal);
+    }
+
     function moveServo(idx, angleDeg) {
         angleDeg = parseFloat(angleDeg);
         const slider = document.getElementById(`servo-slider-${idx}`);

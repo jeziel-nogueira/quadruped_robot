@@ -139,6 +139,24 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // 5. Parameter Slider Handlers
+    window.stepParam = function(id, delta) {
+        const input = document.getElementById(id);
+        if (!input) return;
+        const min = parseFloat(input.min) || 0;
+        const max = parseFloat(input.max) || 100;
+        const step = parseFloat(input.step) || 0.01;
+        let current = parseFloat(input.value) || 0;
+        let newVal = Math.max(min, Math.min(max, current + delta));
+        
+        // Match step precision decimal places
+        const stepStr = step.toString();
+        const decimals = stepStr.includes('.') ? stepStr.split('.')[1].length : 0;
+        newVal = parseFloat(newVal.toFixed(decimals));
+        
+        input.value = newVal;
+        input.dispatchEvent(new Event("input", { bubbles: true }));
+    };
+
     const sliders = document.querySelectorAll("input[type='range']");
     sliders.forEach(slider => {
         slider.addEventListener("input", (e) => {
