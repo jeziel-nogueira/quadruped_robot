@@ -114,8 +114,10 @@ def main():
             
             joint_angles = cpg.step(dt, yaw, pitch, distance)
             
-            # E. Command Servos
-            hardware.set_servo_angles(joint_angles)
+            # E. Command Servos (only when locomotion gait is active)
+            # When in standby/calibration, servos stay at their manually calibrated positions
+            if commands.get("gait_enabled", False):
+                hardware.set_servo_angles(joint_angles)
             
             # F. Prepare and Send Telemetry
             telemetry_payload = {

@@ -85,6 +85,8 @@ class TelemetryServer:
             """Move a single servo. Body: { index: 0-11, angle_deg: 0-180 }"""
             idx = body.get("index", 0)
             angle = body.get("angle_deg", 90)
+            with self.lock:
+                self.command_queue["gait_enabled"] = False
             if self.hardware:
                 try:
                     self.hardware.servo.set_angle_deg(idx, angle)
@@ -96,6 +98,8 @@ class TelemetryServer:
         @self.app.post("/api/servo/center-all")
         async def center_all_servos():
             """Move all servos to center (90°)."""
+            with self.lock:
+                self.command_queue["gait_enabled"] = False
             if self.hardware:
                 try:
                     self.hardware.servo.center_all()
@@ -107,6 +111,8 @@ class TelemetryServer:
         @self.app.post("/api/servo/detach-all")
         async def detach_all_servos():
             """Detach (PWM off) all servos."""
+            with self.lock:
+                self.command_queue["gait_enabled"] = False
             if self.hardware:
                 try:
                     self.hardware.servo.detach_all()
