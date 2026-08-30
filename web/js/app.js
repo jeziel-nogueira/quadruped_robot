@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const imuPlot = new TimeSeriesPlot(imuCanvas, 120, ["#ff9f1c", "#00f5d4"]);
 
     // State parameters
-    let gaitEnabled = true;
+    let gaitEnabled = false;
     let steeringValue = 0.0;
     let configSynced = false;
 

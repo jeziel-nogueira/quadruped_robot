@@ -162,7 +162,10 @@ class PCA9685ServoDriver:
             return
         cfg = self.servo_configs[servo_idx]
         ticks = cfg.deg_to_ticks(angle_deg)
-        self.pwm.set_pwm(cfg.channel, 0, ticks)
+        try:
+            self.pwm.set_pwm(cfg.channel, 0, ticks)
+        except OSError as e:
+            logger.warning(f"[ServoDriver] I2C glitch on servo {servo_idx} (ch {cfg.channel}): {e}")
 
     def set_angle_rad(self, servo_idx, angle_rad):
         """Set servo by index (0-11) from a CPG-space radians value (0 = center = 90°)."""
@@ -172,7 +175,10 @@ class PCA9685ServoDriver:
             return
         cfg = self.servo_configs[servo_idx]
         ticks = cfg.rad_to_ticks(angle_rad)
-        self.pwm.set_pwm(cfg.channel, 0, ticks)
+        try:
+            self.pwm.set_pwm(cfg.channel, 0, ticks)
+        except OSError as e:
+            logger.warning(f"[ServoDriver] I2C glitch on servo {servo_idx} (ch {cfg.channel}): {e}")
 
     def set_all_angles(self, angles_rad):
         """Set all 12 servo angles from a list of radian values."""
@@ -184,7 +190,10 @@ class PCA9685ServoDriver:
         if not self.pwm:
             return
         for cfg in self.servo_configs:
-            self.pwm.set_pwm(cfg.channel, 0, cfg.tick_center)
+            try:
+                self.pwm.set_pwm(cfg.channel, 0, cfg.tick_center)
+            except OSError as e:
+                logger.warning(f"[ServoDriver] I2C glitch centering ch {cfg.channel}: {e}")
         logger.info("[ServoDriver] All servos centered.")
 
     def set_raw_ticks(self, channel, ticks):
@@ -192,14 +201,20 @@ class PCA9685ServoDriver:
         if not self.pwm:
             return
         ticks = int(max(0, min(4095, ticks)))
-        self.pwm.set_pwm(channel, 0, ticks)
+        try:
+            self.pwm.set_pwm(channel, 0, ticks)
+        except OSError as e:
+            logger.warning(f"[ServoDriver] I2C glitch setting raw ticks ch {channel}: {e}")
 
     def detach_all(self):
         """Turn off PWM signal on all servo channels (prevents buzzing)."""
         if not self.pwm:
             return
         for cfg in self.servo_configs:
-            self.pwm.set_pwm(cfg.channel, 0, 0)
+            try:
+                self.pwm.set_pwm(cfg.channel, 0, 0)
+            except OSError:
+                pass
         logger.info("[ServoDriver] All servos detached (PWM off).")
 
     def get_configs_as_dicts(self):

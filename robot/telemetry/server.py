@@ -28,7 +28,7 @@ class TelemetryServer:
         
         # Queues for inputs/configurations to be read by the main robot loop
         self.command_queue = {
-            "gait_enabled": True,
+            "gait_enabled": False,
             "steering": 0.0,
         }
         self.config_updates = {}

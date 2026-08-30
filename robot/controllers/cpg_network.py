@@ -51,7 +51,7 @@ class CPGNetwork:
         # Gait control modifiers (multipliers)
         self.steering_amp_left = 1.0
         self.steering_amp_right = 1.0
-        self.gait_enabled = True
+        self.gait_enabled = False
 
     def reset_states(self):
         """Initialize all neuron states (positions u and velocities v) to small values to kickstart oscillation."""
