@@ -549,6 +549,7 @@
                 <button class="btn-sm" onclick="event.stopPropagation(); moveServo(${idx}, 135)">135°</button>
                 <button class="btn-sm" onclick="event.stopPropagation(); moveServo(${idx}, 180)">180°</button>
                 <button class="btn-sm" onclick="event.stopPropagation(); sweepServo(${idx})">Sweep</button>
+                <button class="btn-sm" style="${s.inverted ? 'border-color:var(--accent-orange); color:var(--accent-orange);' : ''}" onclick="event.stopPropagation(); toggleInvert(${idx})">⇄ Invert</button>
             </div>
         `;
         return card;
@@ -637,6 +638,15 @@
         } else {
             toast(res.error || "Update failed", true);
         }
+    }
+
+    async function toggleInvert(idx) {
+        selectServo(idx);
+        const chk = document.getElementById("det-inverted");
+        chk.checked = !chk.checked;
+        await updateServoConfig();
+        renderServoGrid();
+        selectServo(idx);
     }
 
     // ── Global actions ───────────────────────────────────────
